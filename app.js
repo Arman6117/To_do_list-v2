@@ -11,7 +11,28 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 mongoose.set("strictQuery", true);
-mongoose.connect("mongodb://127.0.0.1:27017/todolistDB");
+const username = "admin_arman";
+const password = "password25";
+const cluster = "cluster0.tc6bz2t";
+const dbname = "todolistDB";
+const database = module.exports = () => {
+  const connectionparams = {
+    useNewUrlParser: true,
+   
+    useUnifiedTopology: true
+  }
+
+  try {
+    mongoose.connect("mongodb+srv://admin-arman:password25@cluster0.tc6bz2t.mongodb.net/todolistDB?retryWrites=true&w=majority",
+    connectionparams
+    );
+    console.log("Success")
+  } catch (error) {
+    console.log(error)
+    console.log("failed")
+  }
+}
+
 
 const itemsSchema = new mongoose.Schema({
   name: String,
@@ -154,6 +175,9 @@ app.post("/delete", function (req, res) {
 // app.get("/about", function (req, res) {
 //   res.render("about");
 // });
+
+
+database()
 
 app.listen(3000, function () {
   console.log("Server started on port 3000");
