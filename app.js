@@ -72,7 +72,7 @@ app.get("/", function (req, res) {
       });
       res.redirect("/");
     } else {
-      res.render("list", { listTitle: day, newListItems: results });
+      res.render("list", { listTitle: "Today", newListItems: results });
     }
   });
 
@@ -109,7 +109,7 @@ app.post("/", function (req, res) {
     name: itemName,
   });
 
-  if (listName == day) {
+  if (listName == "Today") {
     item.save();
     res.redirect("/");
   } else {
@@ -135,7 +135,7 @@ app.post("/delete", function (req, res) {
 
   const listName = req.body.listName;
 
-  if (listName == day) {
+  if (listName == "Today") {
 
     Item.findByIdAndRemove(deleteID, function (err) {
 
